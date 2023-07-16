@@ -18,16 +18,20 @@ class UserController extends Controller
 {
     public function allUsers()
     {
-        try {
-            $user = auth()->userOrFail();
-        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
-            return response()->json(['success' => false, 'error' => $e->getMessage()], 401);
-        }
-        if (auth()->user()->admin == 1) {
-            return User::all();
-        } else {
-            return response()->json(['success' => false, 'error' => 'You are not admin'], 401);
-        }
+//        try {
+//            $user = auth()->userOrFail();
+//        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+//            return response()->json(['success' => false, 'error' => $e->getMessage()], 401);
+//        }
+//        if (auth()->user()->admin == 1) {
+//            return User::all();
+//        } else {
+//            return response()->json(['success' => false, 'error' => 'You are not admin'], 401);
+//        }
+        $array = User::all();
+        $data_1 = collect($array)->all();
+
+        return response()->json(['data' => $data_1], 200);
     }
 
     public function userData()

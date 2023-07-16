@@ -26,23 +26,15 @@ Route::post('login', 'App\Http\Controllers\Api\Auth\LoginController@login');
 Route::get('refresh', 'App\Http\Controllers\Api\Auth\LoginController@refresh');
 Route::post('userRegistration', 'App\Http\Controllers\Api\User\UserController@userRegistration');
 Route::post('messageSave', 'App\Http\Controllers\Api\Messages\MessagesController@messageSave');
-Route::get('products/{id}', 'App\Http\Controllers\Api\Products\ProductsController@productById');
-Route::get('products', 'App\Http\Controllers\Api\Products\ProductsController@products');
-Route::get('posts', 'App\Http\Controllers\Api\Posts\PostsController@posts');
-Route::get('posts/{id}', 'App\Http\Controllers\Api\Posts\PostsController@postById');
-Route::post('postSave', 'App\Http\Controllers\Api\Posts\PostsController@postSave');
+Route::get('cases', 'App\Http\Controllers\Api\Cases\CasesController@cases');
 
 Route::group(['middleware' => ['jwt.verify']], function () {
-    Route::get('allUsers', 'App\Http\Controllers\Api\User\UserController@allUsers');
     Route::put('updatePassword', 'App\Http\Controllers\Api\User\UserController@updatePassword');
     Route::put('updateUserInfo', 'App\Http\Controllers\Api\User\UserController@updateUserInfo');
     Route::get('user', 'App\Http\Controllers\Api\User\UserController@userData');
-
-    Route::put('posts/{post}', 'App\Http\Controllers\Api\Posts\PostsController@postEdit');
-    Route::delete('posts/{post}', 'App\Http\Controllers\Api\Posts\PostsController@postRemove');
-
-    Route::post('productSave', 'App\Http\Controllers\Api\Products\ProductsController@productSave');
-    Route::put('products/{post}', 'App\Http\Controllers\Api\Products\ProductsController@productEdit');
-
-    Route::get('messages', 'App\Http\Controllers\Api\Messages\MessagesController@messages');
+    Route::post('createCategory', 'App\Http\Controllers\Api\Categories\CategoriesController@createCategory');
+    Route::get('categories', 'App\Http\Controllers\Api\Categories\CategoriesController@categories');
+    Route::post('caseSave', 'App\Http\Controllers\Api\Cases\CasesController@caseSave');
+    Route::get('allUsers', 'App\Http\Controllers\Api\User\UserController@allUsers');
+    Route::get('messagesList', 'App\Http\Controllers\Api\Messages\MessagesController@messagesList');
 });

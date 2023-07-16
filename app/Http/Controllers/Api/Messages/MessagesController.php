@@ -11,7 +11,7 @@ use Validator;
 
 class MessagesController extends Controller
 {
-    public function messages()
+    public function messagesList()
     {
         try {
             $user = auth()->userOrFail();
@@ -27,21 +27,22 @@ class MessagesController extends Controller
     public function messageSave(Request $request)
     {
         $rules = [
+            'direction' => 'required',
             'name' => 'required',
             'email' => 'required',
-            'type' => 'required',
             'phone' => 'required',
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return response()->json(['success' => false, $validator->errors()], 400);
         }
-        $email = $request->email;
+        $direction = $request->direction;
         $name = $request->name;
-        $type = $request->type;
+        $email = $request->email;
         $phone = $request->phone;
-        Mail::to("oljasalidarov@gmail.com")->send(new Message($email, $name, $type, $phone));
-        $message = Messages::create(['name' => $request->name, 'email' => $request->email, 'type' => $request->type, 'phone' => $request->phone]);
+        $note = $request->note;
+        Mail::to("oljasalidarov@gmail.com")->send(new Message($direction, $name, $email, $phone, $note));
+        $message = Messages::create(['direction' => $direction, 'name' => $name, 'email' => $email, 'phone' => $phone, 'note' => $note]);
         return response()->json(['success' => true, $message], 201);
     }
 }
