@@ -1,29 +1,29 @@
 <?php
 
-namespace App\Http\Controllers\Api\Cases;
+namespace App\Http\Controllers\Api\Projects;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Models\Projects;
 use Validator;
 
-use App\Models\Models\Cases;
-
-class CasesController extends Controller
+class ProjectsController extends Controller
 {
-    public function cases()
+    public function projects()
     {
-        $array = Cases::with(['user_id', 'category_id'])->get();
+        $array = Projects::with(['user_id', 'client_id', 'case_id'])->get();
         $data_1 = collect($array)->all();
 
         return response()->json(['data' => $data_1], 200);
     }
-    public function caseSave(Request $request)
+    public function projectSave(Request $request)
     {
         $rules = [
             'name' => 'required',
             'images' => 'required',
             'description' => 'required',
-            'category_id' => 'required'
+            'client_id' => 'required',
+            'case_id' => 'required'
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -32,9 +32,10 @@ class CasesController extends Controller
         $name = $request->name;
         $description = $request->description;
         $images = $request->images;
-        $category_id = $request->category_id;
+        $client_id = $request->client_id;
+        $case_id = $request->case_id;
         $user_id = auth()->user()->id;
-        $message = Cases::create(['name' => $name, 'description' => $description, 'images' => $images, 'category_id' => $category_id, 'user_id' => $user_id]);
+        $message = Projects::create(['name' => $name, 'description' => $description, 'images' => $images, 'user_id' => $user_id, 'client_id' => $client_id, 'case_id' => $case_id]);
         return response()->json(['success' => true, $message], 201);
     }
 }

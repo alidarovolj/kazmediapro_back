@@ -1,23 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Api\Categories;
+namespace App\Http\Controllers\Api\Clients;
 
-use App\Http\Controllers\Api\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Models\Clients;
 use Validator;
 
-use App\Models\Models\Categories;
-
-class CategoriesController extends Controller
+class ClientsController extends Controller
 {
-    public function categories()
+    public function clients()
     {
-        $array = Categories::with(['user_id'])->get();
+        $array = Clients::with(['user_id'])->get();
         $data_1 = collect($array)->all();
 
         return response()->json(['data' => $data_1], 200);
     }
-    public function createCategory(Request $request)
+    public function clientSave(Request $request)
     {
         $rules = [
             'name' => 'required',
@@ -28,7 +27,7 @@ class CategoriesController extends Controller
         }
         $name = $request->name;
         $user_id = auth()->user()->id;
-        $message = Categories::create(['name' => $name, 'user_id' => $user_id]);
+        $message = Clients::create(['name' => $name, 'user_id' => $user_id]);
         return response()->json(['success' => true, $message], 201);
     }
 }

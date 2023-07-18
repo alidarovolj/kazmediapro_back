@@ -37,4 +37,8 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::post('caseSave', 'App\Http\Controllers\Api\Cases\CasesController@caseSave');
     Route::get('allUsers', 'App\Http\Controllers\Api\User\UserController@allUsers');
     Route::get('messagesList', 'App\Http\Controllers\Api\Messages\MessagesController@messagesList');
+    Route::get('clients', 'App\Http\Controllers\Api\Clients\ClientsController@clients');
+    Route::get('projects', 'App\Http\Controllers\Api\Projects\ProjectsController@projects');
+    Route::post('projectSave', 'App\Http\Controllers\Api\Projects\ProjectsController@projectSave');
+    Route::post('clientSave', 'App\Http\Controllers\Api\Clients\ClientsController@clientSave');
 });
