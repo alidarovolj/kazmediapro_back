@@ -27,6 +27,8 @@ Route::get('refresh', 'App\Http\Controllers\Api\Auth\LoginController@refresh');
 Route::post('userRegistration', 'App\Http\Controllers\Api\User\UserController@userRegistration');
 Route::post('messageSave', 'App\Http\Controllers\Api\Messages\MessagesController@messageSave');
 Route::get('cases', 'App\Http\Controllers\Api\Cases\CasesController@cases');
+Route::post('categoryCases', 'App\Http\Controllers\Api\Categories\CategoriesController@categoryCases');
+Route::get('categoryById/{id}', 'App\Http\Controllers\Api\Categories\CategoriesController@categoryById');
 
 Route::group(['middleware' => ['jwt.verify']], function () {
     Route::put('updatePassword', 'App\Http\Controllers\Api\User\UserController@updatePassword');

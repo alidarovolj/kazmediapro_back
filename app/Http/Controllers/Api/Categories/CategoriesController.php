@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Categories;
 
 use App\Http\Controllers\Api\Controller;
+use App\Models\Models\Projects;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -16,6 +17,26 @@ class CategoriesController extends Controller
         $data_1 = collect($array)->all();
 
         return response()->json(['data' => $data_1], 200);
+    }
+    public function categoryCases()
+    {
+        $categoriesWithCases = Categories::with(['user_id', 'cases'])->get();
+        $data = $categoriesWithCases->toArray();
+
+        return response()->json(['data' => $categoriesWithCases], 200);
+    }
+    public function categoryById($id)
+    {
+        $column = 'id';
+
+        // Retrieve the category with its associated cases
+        $category = Categories::with('cases')->find($id);
+
+        if (is_null($category)) {
+            return response()->json(['error' => true, 'message' => 'Object not found'], 404);
+        }
+
+        return response()->json(['data' => $category], 200);
     }
     public function createCategory(Request $request)
     {
