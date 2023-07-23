@@ -12,20 +12,22 @@ class Message extends Mailable
 
     use Queueable, SerializesModels;
     public $email;
+    public $direction;
     public $name;
-    public $type;
+    public $note;
     public $phone;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($email, $name, $type, $phone)
+    public function __construct($email, $direction, $name,  $phone, $note)
     {
         $this->email = $email;
         $this->name = $name;
-        $this->type = $type;
+        $this->direction = $direction;
         $this->phone = $phone;
+        $this->note = $note;
     }
     /**
      * Build the message.
@@ -34,7 +36,7 @@ class Message extends Mailable
      */
     public function build()
     {
-        return $this->subject('Заявка с CREOAD')
+        return $this->subject('Заявка с KazMediaPro')
             ->markdown('emails.messages');
     }
 }

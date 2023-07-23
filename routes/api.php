@@ -46,4 +46,8 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::post('categoryRemove', 'App\Http\Controllers\Api\Categories\CategoriesController@categoryRemove');
     Route::post('projectRemove', 'App\Http\Controllers\Api\Projects\ProjectsController@projectRemove');
     Route::post('caseRemove', 'App\Http\Controllers\Api\Cases\CasesController@caseRemove');
+    Route::put('caseUpdate', 'App\Http\Controllers\Api\Cases\CasesController@caseUpdate');
+    Route::put('categoryUpdate', 'App\Http\Controllers\Api\Categories\CategoriesController@categoryUpdate');
+    Route::put('clientUpdate', 'App\Http\Controllers\Api\Clients\ClientsController@clientUpdate');
+    Route::put('projectUpdate', 'App\Http\Controllers\Api\Projects\ProjectsController@projectUpdate');
 });

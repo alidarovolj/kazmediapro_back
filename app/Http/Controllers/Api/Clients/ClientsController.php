@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\Clients;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\Controller;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use App\Models\Models\Clients;
@@ -44,5 +44,26 @@ class ClientsController extends Controller
         $id = $request->id;
         $message = Clients::where('id', $id)->delete();
         return response()->json(['success' => true, 'message' => $message], 201);
+    }
+    public function clientUpdate(Request $request)
+    {
+        try {
+            $user = auth()->userOrFail();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json(['success' => false, 'error' => $e->getMessage()], 401);
+        }
+        $rules = [
+            'id' => 'required',
+            'name' => 'required',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'errors' => $validator->errors()], 400);
+        }
+        $id = $request->id;
+        Clients::where('id', $id)->update(array(
+            'name' => $request->name,
+        ));
+        return response()->json(['success' => true, "data" => "Data updated successfully"], 200);
     }
 }

@@ -65,4 +65,25 @@ class CategoriesController extends Controller
         $message = Categories::where('id', $id)->delete();
         return response()->json(['success' => true, 'message' => $message], 201);
     }
+    public function categoryUpdate(Request $request)
+    {
+        try {
+            $user = auth()->userOrFail();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json(['success' => false, 'error' => $e->getMessage()], 401);
+        }
+        $rules = [
+            'id' => 'required',
+            'name' => 'required',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'errors' => $validator->errors()], 400);
+        }
+        $id = $request->id;
+        Categories::where('id', $id)->update(array(
+            'name' => $request->name,
+        ));
+        return response()->json(['success' => true, "data" => "Data updated successfully"], 200);
+    }
 }

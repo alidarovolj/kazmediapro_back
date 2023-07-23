@@ -41,7 +41,7 @@ class MessagesController extends Controller
         $email = $request->email;
         $phone = $request->phone;
         $note = $request->note;
-        Mail::to("oljasalidarov@gmail.com")->send(new Message($direction, $name, $email, $phone, $note));
+        Mail::to("oljasalidarov@gmail.com")->send(new Message($direction, $email, $name, $phone, $note));
         $message = Messages::create(['direction' => $direction, 'name' => $name, 'email' => $email, 'phone' => $phone, 'note' => $note]);
         return response()->json(['success' => true, $message], 201);
     }

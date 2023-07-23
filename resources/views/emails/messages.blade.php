@@ -1,16 +1,16 @@
 <x-mail::message>
-    Dear CREOAD team!
-    There is a new application from new potential customer. Please check and contact:
+    Команда KazMediaPro,
+    Есть новая заявка от нового потенциального клиента. Пожалуйста, проверьте и свяжитесь:
 
+    Направление: {{$direction}}
+    Имя: {{$name}}
     Email: {{$email}}
-    Phone: {{$phone}}
-    Name: {{$name}}
-    Type: {{$type}}
+    Телефон: {{$phone}}
+    Описание: {{$note}}
 
-<x-mail::button :url="'https://creoad.kz/'">
-Go to a website
+<x-mail::button :url="'https://kazmediapro.creoad.kz/'">
+Перейти на сайт
 </x-mail::button>
 
-Thanks,<br>
-Olzhas
+Спасибо, за ваше внимание!
 </x-mail::message>
