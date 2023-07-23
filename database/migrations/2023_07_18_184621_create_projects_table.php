@@ -25,6 +25,7 @@ return new class extends Migration
             $table->bigInteger('case_id')->unsigned();
             $table->foreign('case_id')->references('id')->on('categories');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

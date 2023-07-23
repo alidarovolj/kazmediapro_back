@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Models\Clients;
 use App\Models\Models\Cases;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Projects extends Model
 {
+    use SoftDeletes;
     use HasFactory;
     protected $fillable = [
         'name',

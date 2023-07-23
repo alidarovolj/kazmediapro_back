@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Api\Projects;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use App\Models\Models\Projects;
 use Validator;
 
 class ProjectsController extends Controller
 {
+    use SoftDeletes;
     public function projects()
     {
         $array = Projects::with(['user_id', 'client_id', 'case_id'])->get();
@@ -37,5 +39,18 @@ class ProjectsController extends Controller
         $user_id = auth()->user()->id;
         $message = Projects::create(['name' => $name, 'description' => $description, 'images' => $images, 'user_id' => $user_id, 'client_id' => $client_id, 'case_id' => $case_id]);
         return response()->json(['success' => true, $message], 201);
+    }
+    public function projectRemove(Request $request)
+    {
+        $rules = [
+            'id' => 'required',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'errors' => $validator->errors()], 400);
+        }
+        $id = $request->id;
+        $message = Projects::where('id', $id)->delete();
+        return response()->json(['success' => true, 'message' => $message], 201);
     }
 }

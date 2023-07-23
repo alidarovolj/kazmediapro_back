@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Models\Categories;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Cases extends Model
 {
+    use SoftDeletes;
     use HasFactory;
 
     protected $fillable = [
