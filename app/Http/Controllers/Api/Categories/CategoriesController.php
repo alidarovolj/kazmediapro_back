@@ -13,14 +13,14 @@ class CategoriesController extends Controller
 {
     public function categories()
     {
-        $array = Categories::with(['user_id'])->get();
+        $array = Categories->get();
         $data_1 = collect($array)->all();
 
         return response()->json(['data' => $data_1], 200);
     }
     public function categoryCases()
     {
-        $categoriesWithCases = Categories::with(['user_id', 'cases'])->get();
+        $categoriesWithCases = Categories::with(['cases'])->get();
         $data = $categoriesWithCases->toArray();
 
         return response()->json(['data' => $categoriesWithCases], 200);

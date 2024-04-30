@@ -8,7 +8,7 @@
     Телефон: {{$phone}}
     Описание: {{$note}}
 
-<x-mail::button :url="'https://kazmediapro.creoad.kz/'">
+<x-mail::button :url="'https://kazmpro.kz/'">
 Перейти на сайт
 </x-mail::button>
 
